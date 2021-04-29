@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+  {% block title %} {{ title }} {% endblock title %}
+
+  {% block styles %}
+    <link href="{% static '/app/post.css' %}" rel="stylesheet" type="text/css"> 
+  {% endblock styles %}
+
+
+  {% block content %}
+
+  <div class="back" >
+
+    <button class="back-btn"><a href="{% url 'instagram:profile' user.profile.pk %}">Back</a></button>
+  </div>
+
+  <div id="big-container">
+    <div class="header">
+      <div class="title">
+        <h2>{{ object.title}}  <small> - {{ object.time }}</small></h2>
+
+      </div>
+
+      <div class="buttons">
+
+          <form action="{% url 'instagram:delete_post' object.id %}" method="POST" id='delete-form'>
+            {% csrf_token %}
+            {{ form }}
+            <input class="delete-btn" type="submit" value="Delete"><button class="edit-btn"><a href="{% url 'instagram:edit_post' object.id %}">Edit </a></button>
+      
+          </form>
+      
+          
+      </div>
+      
+    </div>
+    
+          <p class="description">
+            {% for line in object.description.splitlines %}
+            {{ line }}<br>
+            {% endfor %}
+          </p><br>          
+          {% if object.image %}
+            <img src="{{ object.image.url }}" id="post_pic" width=600px height=auto ><br>
+          {% endif %}
+
+        <div class="like-cmt">
+          <p class="likes">{{ object.total_likes }} Likes |  </p>
+          <p class="cmts">  {{ object.total_comments }}  Comments </p>
+          
+          <p><a href="#" class="show-cmts">View all comments </a></p>
+        </div>
+
+  </div>
+      
+      <div>
+        <div class="comment-box">
+          <h3>Comments</h3>
+
+          {% if object.comments_set.all %}
+              {% for c in object.comments_set.all %}
+                    
+                  <div class=cmt_area>
+                      <p class="user"> {{ c.user }} - <small> {{ c.date }}</small> </p>
+
+                      <p class="comment"> >> {{ c.text }} </p>
+        
+                  </div>
+              {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+        
+  
+  {% endblock content %}
+
+{% block scripts %} 
+        <script>
+            $( document ).ready(function() {
+
+              let display = false
+              $(".show-cmts").click(function (e) {
+
+                e.preventDefault();
+
+                if (display===false) {
+                    $(".comment-box").slideDown("slow");
+                    display=true
+                } else {
+                    $(".comment-box").slideUp("slow");
+                    display=false
+                }  
+            })
+
+
+          });
+
+        </script>
+{% endblock scripts %}

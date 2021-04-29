@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'app/profile.css' %}">
+{% endblock %}
+
+{% block navbar %}
+     
+           <nav id="nav">
+               <ul>
+                   <li><a href='{% url "instagram:homepage" %}' id="home"><i class="fas fa-home "></i></a></li>
+                   <li><a href='{% url "instagram:addPost" %}' id="addpost"><i class="fas fa-user-plus "></i></a></li>
+                   <li><a href='{% url "instagram:profile" user.profile.pk %}' id="profile"><i class="fas fa-user-circle "></i></a></li>
+                   <li><a href='{% url "instagram:logout" %}' id="logout"><i class="fas fa-sign-out-alt "></i></a></li>
+               </ul>
+           </nav>
+{% endblock navbar %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div id="pic_div">
+            <div id="profile_pic">
+                {% if profile.image %}
+                    <img src= "{{ profile.image.url }}" height=200px width=200px ><br>
+
+                {% endif %}
+            </div>
+
+        </div>
+        <div id="info_div">
+            <div id="user">
+                <h1 class="un">{{ profile.user.username }}   </h1> 
+                <div id="edit-delete-btn">
+                    <form action="{% url 'instagram:delete_profile' request.user.id %}" method="POST" id='delete-form'>
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type = "submit" class="delete">Delete Profile</button>
+                  
+                    </form> 
+                    <button class="edit"><a href="{% url 'instagram:editProfile' %}">Edit Profile</a></button> 
+
+
+                </div>
+
+                <h3 class="fn">{{ profile.fullname }}</h3><br>
+                <p class="bio">{{ profile.bio }}</p>
+
+            </div>
+           <div id="activities">
+                <p >{{ all_posts.count }} Posts </p>
+                <p > {{ followers.count }} Followers</p>
+            </div> 
+
+        </div>
+
+    </div>
+    <div id="posts">
+
+        <h2> YOUR POSTS</h2><br>
+        <div class="underline"></div>
+
+    
+        <div class="pic_container">
+            {% for post in all_posts %}
+
+            <div class="pictures">
+                <h4 class="post_title">{{ post.title }}</h4>
+
+                <p class="post_desc">{% if post.description|length > 40 %}
+                    {{post.description|slice:40}}...
+                    {% else  %}
+                    {{post.description }}
+                {% endif %}</p><br>
+
+                {% if post.image %}
+                <a href="{% url 'instagram:post' post.id %}"><img src="{{ post.image.url }}" width=auto height=180px class="pic"></a><br>
+                
+                {% endif %}
+
+
+                
+            </div>
+            {% endfor %}
+
+        </div>    
+
+    
+    </div>
+
+    
+
+
+{% endblock content %}
+
+
+
+
+

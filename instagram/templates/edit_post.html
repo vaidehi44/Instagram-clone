@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'app/edit_post.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Edit Post</h2>
+<div class="underline"></div>
+
+<form action='' method='post' enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    {{ form.title }}<br>
+    <label for="description">Description:</label>
+    {{ form.description }}<br>
+    <div id="img_row">
+        <ul id="img_label">
+            <li><label for="image">Change Post Image:</label></li>
+            <li>{{ form.image }}</li>
+        </ul>
+        
+
+        <img id="orig_img" src="{{ form.image.value.url }}" width=400px height="auto">
+
+    </div>
+    
+    <input type='submit' value='Edit'>  <button class="cancel_btn"><a href="{% url 'instagram:post' object.id %}">Cancel</a></button>
+
+</form>
+
+{% endblock content %}

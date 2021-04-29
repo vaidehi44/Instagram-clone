@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'app/home.css' %}">
+{% endblock %}
+
+{% block navbar %}
+     
+           <nav id="nav">
+               <ul>
+                   <li><a href='{% url "instagram:home" %}' id="home"><i class="fas fa-home "></i></a></li>
+                   <li><a href='{% url "instagram:addPost" %}' id="addpost"><i class="fas fa-user-plus "></i></a></li>
+                   <li><a href='{% url "instagram:profile" user.profile.pk %}' id="profile"><i class="fas fa-user-circle "></i></a></li>
+                   <li><a href='{% url "instagram:logout" %}' id="logout"><i class="fas fa-sign-out-alt "></i></a></li>
+               </ul>
+           </nav>
+{% endblock navbar %}
+
+
+{% block content %}
+<h2>HOME</h2><br>
+<div class="underline"></div>
+
+<div id="post-panel">
+    <ul>
+        {% for post in object_list %}
+        <li>
+        <div class="post_container">
+            <p class="user">{{ post.user }}  <small>- {{ post.time }}</small></p>
+
+            {% if post.image %}
+            <img src="{{ post.image.url }}" width=600px height=auto id="post_pic">
+            {% endif %}
+            <br>
+
+            <div id="details">
+                <p class="title" >{{ post.title }}</p>
+                <p class="description">{% for line in post.description.splitlines %}
+                    {{ line }}<br>
+                    {% endfor %}
+                </p><br>
+
+                <div id="like-cmt-share">
+                    <form action="{% url 'instagram:like' %}" method="POST" class='like-form' id='{{ post.id }}'>
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value = {{ post.id }} >
+                        
+                            <button type="submit" class="like-btn{{post.id}}" id="like-btn" >
+                                {% if request.user not in post.likes.all %}
+                                    Like
+                                {% else %}
+                                    Unlike
+                                {% endif %}
+                            </button>     
+                                
+                    </form>
+                    <button class="show_comment" id="{{post.id}}" >Comment</button>
+
+
+                    <button class="share" >Share</button>
+                </div>
+
+                <div id="like-cmt-count">
+                    <div class="like-count{{post.id}}" id="like-count"> {{post.total_likes}} Likes | </div> 
+                    <div class="comments-count{{post.id}}" id="comment-count"> {{post.total_comments}} Comments</div> 
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="comment-box{{post.id}}" id="comment-box">
+            <form action="{% url 'instagram:comment' post.id%}" method="POST" class="comment_form" id='{{ post.id }}'>
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value = {{ post.id }} >
+
+                {{ comment_form.as_p }}
+                <input type="submit" value="comment" id="cmt-btn">
+                
+                        
+            </form>
+        </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="sugg-panel">
+    <p id="sugg_msg">Suggestions for you...</p>
+
+    <ul>
+        {% for profile_ in profile_sugg %}
+
+        {% if request.user not in profile_.followers.all%}
+
+        <li>
+            <div class="sugg_row">
+            <div class="sugg_user">
+                <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+
+                <h4>{% if profile_.fullname|length > 20 %}
+                        {{ profile_.fullname|slice:20 }}...
+                    {% else  %}
+                        {{ profile_.fullname }}
+                    {% endif %}</h4>
+
+                <div class="follow-count{{profile_.id}}" id="follow-count"> {{ profile_.total_followers }} followers</div>
+
+            </div>
+
+
+            <div class="follow">
+                <form action="{% url 'instagram:follow' %}" method="POST" class='follow-form' id='{{ profile_.id }}'>
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_id" value = {{ profile_.id }} >
+                    
+                        <button type="submit" id="follow-btn" class="follow-btn{{profile_.id}}">
+                            {% if request.user not in profile_.followers.all %}
+                                Follow
+                            {% else %}
+                                Following
+                            {% endif %}
+                        </button>
+                            
+                </form>
+
+            </div>
+
+        </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock content %}
+
+{% block scripts %} 
+    <script>
+        $( document ).ready(function() {
+
+            $('.like-form').on('submit', function(event){
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                
+                const post_id = $(this).attr('id')
+                
+                const likeText = $(`.like-btn${post_id}`).text()
+                const trim = $.trim(likeText)
+
+                const url = $(this).attr('action')
+                
+                let res;
+                const likes = $(`.like-count${post_id}`).text()
+                const trimCount = parseInt(likes)
+                
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id':post_id,
+                    },
+                    success: function(response) {
+                        if(trim === 'Unlike') {
+                            $(`.like-btn${post_id}`).text('Like')
+                            res = trimCount - 1
+                        } else {
+                            $(`.like-btn${post_id}`).text('Unlike')
+                            res = trimCount + 1
+                        }
+
+                        $(`.like-count${post_id}`).text(res+" Likes | ")
+                    },
+                    error: function(response) {
+                        console.log('error', response);
+                        
+                    }
+
+                    
+                });
+
+                return false;
+            });
+
+            let display=false
+
+            $(".show_comment").click(function(e) {
+
+
+                post_id = $(this).attr('id')
+
+                if (display===false) {
+                    $(`.comment-box${post_id}`).slideDown("slow");
+                    display=true;
+                }
+                else {
+                    $(`.comment-box${post_id}`).slideUp("slow");
+                    display=false;
+
+                    }
+                
+            })
+
+
+
+            $('.follow-form').on('submit', function(event){
+
+                event.preventDefault();
+
+                const profile_id = $(this).attr('id')
+
+                const followText = $(`.follow-btn${profile_id}`).text()
+                const trim = $.trim(followText)
+
+                const url = $(this).attr('action')
+
+                let res;
+                const followers = $(`.follow-count${profile_id}`).text()
+                const trimCount = parseInt(followers)
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'profile_id':profile_id,
+                    },
+                    success: function(response) {
+                        if(trim === 'Following') {
+                            $(`.follow-btn${profile_id}`).text('Follow')
+                            res = trimCount - 1
+                        } else {
+                            $(`.follow-btn${profile_id}`).text('Following')
+                            res = trimCount + 1
+                        }
+
+                        $(`.follow-count${profile_id}`).text(res+" followers")
+                    },
+                    error: function(response) {
+                        console.log('error', response);
+                        
+                    }
+
+                });
+            });
+
+            $('.comment_form').on('submit', function(e) {
+                e.preventDefault();
+
+                const post_id = $(this).attr('id')
+                const comments = $(`.comments-count${post_id}`).text()
+                var Count = parseInt(comments)
+
+
+                $.ajax({
+                    url : $(this).attr('action') ,
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $(`.comment-box${post_id}`).slideUp("slow");
+                        Count = Count + 1;
+                        $(`.comments-count${post_id}`).text(Count+" Comments")
+
+
+                    },
+                    error: function (jXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+        });
+    });
+            
+
+        });
+    </script>
+{% endblock scripts %}
+

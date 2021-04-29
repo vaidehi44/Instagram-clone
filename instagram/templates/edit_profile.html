@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'app/edit_profile.css' %}">
+{% endblock %}
+
+{% block navbar %}
+     
+           <nav id="nav">
+               <ul>
+                   <li><a href='{% url "instagram:homepage" %}' id="home"><i class="fas fa-home "></i></a></li>
+                   <li><a href='{% url "instagram:addPost" %}' id="addpost"><i class="fas fa-user-plus "></i></a></li>
+                   <li><a href='{% url "instagram:profile" user.profile.pk %}' id="profile"><i class="fas fa-user-circle "></i></a></li>
+                   <li><a href='{% url "instagram:logout" %}' id="logout"><i class="fas fa-sign-out-alt "></i></a></li>
+               </ul>
+           </nav>
+{% endblock navbar %}
+
+{% block content %}
+
+<h2>EDIT PROFILE</h2>
+<div class="underline"></div>
+
+
+<form action='' method='post' enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <div id="img_row">
+        <ul id="img_label">
+            <li><label for="image">Profile Picture:</label></li>
+            <li class="choice">{{ user_profile_form.image }}</li>
+        </ul>
+        
+        <img id="orig_img" src="{{ user_profile_form.image.value.url }}" width=200px height="200px">
+
+    </div>
+    <label for="username">Username:</label>
+    {{ user_form.username }}<br>
+    <label for="fullname">Name:</label>
+    {{ user_profile_form.fullname }}<br>
+    <label for="email">Email Address:</label>
+    {{ user_form.email }}<br>
+    <label for="bio">Bio:</label>
+    {{ user_profile_form.bio }}<br>
+    
+    
+    <input type='submit' value='EDIT'>  <button class="cancel_btn"><a href="{% url 'instagram:profile' user.profile.pk %}">CANCEL</a></button>
+
+</form>
+
+{% endblock content %}

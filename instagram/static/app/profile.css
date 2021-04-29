@@ -1,0 +1,206 @@
+*{
+    box-sizing: border-box;
+}
+
+#main {
+    padding: 120px 50px 20px 50px;
+
+}
+#profile i {
+    color:rgb(191, 199, 199);
+}
+
+#profile_pic img {
+    border-radius: 50%;
+    border: 1px solid rgb(37, 37, 37);
+}
+.underline{
+    border-top:1px solid grey;
+    width:100%;
+    margin-bottom:20px;
+
+}
+.container {
+    display:flex;
+    margin: 0 20px 0 20px;
+    padding:0px;
+    background-color:rgb(252, 246, 255);
+    height:300px;
+    box-shadow:-8px 7px 5px rgb(167, 165, 165);
+
+}
+#pic_div {
+    width:35%;
+    margin:0;
+}
+#info_div {
+    width:50%;
+    margin:0;
+    margin-left:30px;
+    align-self:center;
+    border-left:1px solid rgb(131, 130, 130);
+    padding-left:50px;
+    padding-top:40px;
+    padding-bottom:30px;
+    
+}
+#pic_div img{
+    display:block;
+    margin-left:50%;
+    margin-right:auto;
+}
+#pic_div {
+    align-self:center;
+}
+h1, h3 {
+    font-weight:normal;
+    margin:0;
+    margin-bottom:10px;
+}
+#user{
+    padding:0px;
+    margin:0;
+    padding-bottom:0;
+    
+}
+
+
+#posts {
+    padding:20px 75px 20px 75px ;
+}
+
+.pic_container {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+.pictures{
+    background-color:rgb(252, 246, 255);
+    margin:20px;
+    padding:0px;
+    padding-top:10px;
+    box-shadow:-8px 7px 5px rgb(167, 165, 165);
+    padding-bottom:0;
+}
+img.pic {
+    margin-bottom:0;
+}
+
+#posts h2{
+    font-weight:normal;
+    word-spacing:10px;
+    margin-bottom:0;
+} 
+#activities p{
+    display:inline-block;
+    width:auto;
+    font-size: 14px;
+    padding-left:0px;
+    padding-right:30px;
+
+}
+#activities{
+    opacity:0.8;
+    padding-top:0px;
+    width:auto;
+    border-top:1px solid rgb(207, 203, 203);
+}
+
+h3.fn {
+    font-size:14px;
+    margin-top:0;
+    clear:both;
+    position:relative;
+    bottom: 17px;
+
+}
+h1.un {
+    margin-bottom: 0;
+    float:left;
+    width:280px;
+    margin-right:50px;
+
+}
+button.edit, button.delete {
+    float:right;
+    width:auto;
+    margin:12px;
+    padding: 8px;
+    border-radius:5px;
+    border:none;
+    position:relative;
+    bottom:15px;
+
+
+}
+button.delete{
+    margin-right:0px;
+    background-color:rgb(233, 79, 79);
+    border:1px solid rgb(116, 16, 16);
+    color:white;
+
+}
+button.edit{
+    background-color:rgb(49, 187, 116);
+    border:1px solid rgb(7, 56, 25);
+}
+
+button.edit a{
+    text-decoration:none;
+    color:white;
+}
+
+
+p.bio{
+    margin-top:0px;
+    
+}
+h4.post_title {
+    font-weight:normal;
+    font-size:18px;
+    text-decoration: underline solid rgb(156, 154, 154);
+    margin:0px;
+    margin-bottom:8px;
+    margin-left:6px;
+}
+p.post_desc{
+    font-size:14px;
+    margin:0;
+    margin-left:6px;
+
+}
+
+
+@media only screen and (max-width: 1350px) {
+    #main{
+        padding: 120px 50px 50px 150px;
+    }
+    h1.un {
+        margin-bottom: 0;
+        float:left;
+        width:auto;
+        margin-right:0px;
+        position:relative;
+        top:25px;
+    
+    }
+    button.edit, button.delete {
+        clear:left;
+        position:relative;
+        bottom:15px;
+
+    }
+    #pic_div img{
+        display:block;
+        margin-left:40%;
+        margin-right:auto;
+    }
+  }
+
+@media only screen and (max-width: 1200px) {
+    #pic_div img{
+        display:block;
+        margin-left:30%;
+        margin-right:auto;
+    }
+}

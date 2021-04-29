@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block styles %}
+    <link href="{% static '/app/add_post.css' %}" rel="stylesheet" type="text/css"> 
+{% endblock styles %}
+
+{% block navbar %}
+     
+           <nav id="nav">
+               <ul>
+                   <li><a href='{% url "instagram:homepage" %}' id="home"><i class="fas fa-home "></i></a></li>
+                   <li><a href='{% url "instagram:addPost" %}' id="addpost"><i class="fas fa-user-plus "></i></a></li>
+                   <li><a href='{% url "instagram:profile" user.profile.pk %}' id="profile"><i class="fas fa-user-circle "></i></a></li>
+                   <li><a href='{% url "instagram:logout" %}' id="logout"><i class="fas fa-sign-out-alt "></i></a></li>
+               </ul>
+           </nav>
+{% endblock navbar %}
+
+{% block content %}
+
+<h2>ADD POST</h2>
+<div class="underline"></div>
+
+
+<form action='' method='post' enctype='multipart/form-data' autocomplete='off'>
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type='submit' value='POST'> <button class="cancel_btn" ><a href="{% url 'instagram:homepage' %}">CANCEL</a></button>
+
+</form>
+
+{% endblock content %}

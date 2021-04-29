@@ -1,0 +1,303 @@
+
+
+
+*{
+    box-sizing: border-box;
+}
+#main{
+    padding: 120px 100px 50px 150px;
+    box-sizing:border-box;
+}
+
+#home i {
+    color:rgb(191, 199, 199);
+}
+
+
+h2{
+    font-weight:normal;
+    margin-bottom:0px;
+
+
+}
+.underline{
+    border-top:1px solid rgb(219, 217, 217);
+    width:100%;
+    margin-bottom:40px;
+    margin-top:-10px;
+}
+
+#post-panel{
+    display:inline-block;
+    width:60%;
+
+}
+
+#post-panel ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+
+}
+
+
+#post-panel li{
+    margin-bottom: 100px;
+
+}
+
+.post_container{
+    padding:0px;
+    border:1px solid rgb(212, 210, 210);
+    margin:0;
+    margin-bottom:0;
+    width:602px;
+    background-color:rgb(252, 246, 255);
+    box-shadow:-12px 12px 6px rgb(167, 165, 165);
+
+
+}
+#details{
+    margin: 10px;
+}
+p.user{
+    font-size:19px;
+    margin-bottom:3px;
+    margin-left:10px;
+}
+small{
+    font-size:13px;
+}
+p.title{
+    text-decoration: underline solid black;
+    font-size:18px;
+
+}
+p.description {
+    font-size:15px;
+    margin-bottom:2px;
+    
+}
+
+.like-form{
+    display:inline-block;
+}
+#like-btn{
+    background-color:rgb(78, 80, 80);
+    border: 1px solid black;
+    border-radius:4px;
+    color:white;
+}
+.show_comment{
+    display:inline-block;
+    background-color:rgb(78, 80, 80);
+    border: 1px solid black;
+    border-radius:4px;
+    color:white;
+}
+.share{
+    display:inline-block;
+    background-color:rgb(78, 80, 80);
+    border: 1px solid black;
+    border-radius:4px;
+    color:white;
+ 
+}
+#cmt-btn {
+    position:relative;
+    left:12px;
+    background-color:rgb(78, 80, 80);
+    border: 1px solid black;
+    border-radius:4px;
+    color:white;
+}
+#like-btn:focus{
+    outline:none;
+}
+.show_comment:focus{
+    outline:none;
+}
+.share:focus{
+    outline:none;
+}
+#cmt-btn:focus{
+    outline:none;
+}
+
+
+#like-count, #comment-count{
+    display:inline-block;
+    font-size: 13px;
+}
+
+
+#like-cmt-share{
+    margin-top:0;
+    margin:5px;
+    margin-left:0;
+}
+
+
+#sugg-panel{
+    display:inline-block;
+    width:350px;
+    vertical-align: top;
+    margin:30px;
+    margin-left:30px;
+    border-radius:6px;
+    border:1px solid rgb(67, 141, 201);
+    box-shadow:-8px 7px 5px rgb(167, 165, 165);
+    background-color:rgb(252, 246, 255);
+
+}
+#sugg-panel ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+.sugg_row{
+    display:block;
+    width:350px;
+    padding:5px;
+    overflow:auto;
+    border-top:1px solid rgb(67, 141, 201);
+
+    padding-right:20px;
+
+}
+.sugg_user{
+    float:left;
+    width:230px;
+    margin:0;
+    padding:5px;
+}
+.sugg_user i{
+    display:inline-block;
+    margin:2px;
+    position:relative;
+    top:5px;
+}
+#sugg_msg {
+    margin:5px;
+    padding:5px;
+    font-size:15px;
+    color:rgb(58, 129, 170);
+}
+.sugg_user h4{
+    display:inline-block;
+    margin:2px;
+    font-weight:normal;
+    font-size:16px;
+
+}
+.follow{
+    float:right;
+    width:70px;
+
+}
+#follow-count {
+    margin:0;
+    padding:0;
+    font-size:14px;
+    color:rgb(105, 192, 233);
+    width:200px;
+    margin-left:30px;
+}
+#follow-btn{
+    position:relative;
+    top:10px;
+    border-radius:10px;
+    border:none;
+    padding:3px;
+    padding-left:8px;
+    padding-right:8px;
+    background-color:rgb(60, 127, 190);
+    color:white;
+}
+
+#follow-btn:focus {
+    outline:none;
+    border: 1px solid rgb(29, 53, 105);
+}
+
+
+/* comment box */
+#comment-box {
+    display:none;
+    position:relative;
+    bottom:15px;
+    box-shadow:-12px 12px 6px rgb(167, 165, 165);
+    width: 602px;
+    background-color:white;
+    padding-bottom: 10px;
+    border-left:1px solid rgb(212, 210, 210);
+    border-right:1px solid rgb(212, 210, 210);
+}
+
+
+#comment-box label{
+    display:none;
+}
+input[id="id_text"]{
+    width: 600px;
+    padding:20px;
+    margin-top:0;
+    border:none;
+}
+input[id="id_text"]:focus {
+    outline:none;
+    background-color:rgb(233, 244, 245);
+}
+
+
+
+@media only screen and (max-width: 1300px) {
+    #main{
+        padding: 120px 50px 50px 150px;
+    }
+    #post_pic{
+        width:550px;
+    }
+    .post_container{
+        width:552px;
+
+    }
+    #sugg-panel{
+        width:300px;
+    }
+    .sugg_row{
+        width:300px;
+    }
+    .sugg_user{
+        width: 180px;
+    }
+  }
+
+  @media only screen and (max-width: 1150px) {
+    #main{
+        padding: 120px 30px 50px 100px;
+    }
+    #post_pic{
+        width:450px;
+    }
+    .post_container{
+        width:450px;
+        margin-right:10px;
+
+    }
+    #sugg-panel{
+        width:280px;
+        margin-left:5px;
+    }
+    .sugg_row{
+        width:280px;
+    }
+    .sugg_user{
+        width: 170px;
+    }
+
+  }
+
+
+
+

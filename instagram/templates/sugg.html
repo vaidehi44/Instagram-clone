@@ -1,0 +1,84 @@
+
+{% block content %}
+<ul>
+    {% for profile_ in object_list %}
+
+    <li>
+        {{profile_.fullname}}<br>
+        <form action="{% url 'instagram:follow' %}" method="POST" class='follow-form' id='{{ profile_.id }}'>
+            {% csrf_token %}
+            <input type="hidden" name="profile_id" value = {{ profile_.id }} >
+            
+                <button type="submit" class="follow-btn{{profile_.id}}">
+                    {% if request.user not in profile_.followers.all %}
+                        Follow
+                    {% else %}
+                        Following
+                    {% endif %}
+                </button>
+                <div class="ui grid">
+                    <div class="column">
+                        <div class="follow-count{{profile_.id}}"> {{ profile_.total_followers }} </div>
+                    </div>
+                    <div class="column">
+                        followers
+                    </div>
+                </div>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+    $( document ).ready(function() {
+        $('.follow-form').on('submit', function(event){
+
+            event.preventDefault();
+
+
+            const profile_id = $(this).attr('id')
+
+            const followText = $(`.follow-btn${profile_id}`).text()
+            const trim = $.trim(followText)
+
+            const url = $(this).attr('action')
+
+            let res;
+            const followers = $(`.follow-count${profile_id}`).text()
+            const trimCount = parseInt(followers)
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    'post_id':profile_id,
+                },
+                success: function(response) {
+                    if(trim === 'Following') {
+                        $(`.follow-btn${profile_id}`).text('Follow')
+                        res = trimCount - 1
+                    } else {
+                        $(`.follow-btn${profile_id}`).text('Following')
+                        res = trimCount + 1
+                    }
+
+                    $(`.follow-count${profile_id}`).text(res)
+                },
+                error: function(response) {
+                    console.log('error', response);
+                    
+                }
+
+                
+            });
+
+
+            });
+
+
+
+});
+</script>
+
+{% endblock content %}

@@ -1,0 +1,166 @@
+*{
+    box-sizing: border-box;
+}
+
+#main{
+    padding: 120px 150px;
+    
+}
+
+.back {
+    padding-bottom: 20px;
+}
+.back-btn {
+    margin-bottom:20px;
+    background-color: rgb(73, 73, 73);
+    padding:8px;
+    border:none;
+    border-radius:5px;
+    box-shadow:-7px 7px 5px rgb(148, 147, 147);
+
+}
+.back-btn a{
+    text-decoration:none;
+    color:white;
+
+}
+h2{
+    font-weight:normal;
+}
+
+.header{
+    display:block;
+    width:600px;
+    margin-bottom:40px;
+    overflow:auto;
+    padding:12px;
+    padding-left:0;
+    padding-right:0;
+    margin-bottom:8px;
+
+}
+
+.title h2{
+    font-size:22px;
+    font-weight:normal;
+    float:left;
+    margin:0;
+    margin-left:0px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgb(218, 214, 214);
+    margin-top:0;
+    margin-bottom:0;
+
+}
+
+small{
+    font-size:15px;
+}
+
+.buttons{
+    float:right;
+    width: 150px;
+    display:block;
+    overflow:auto;
+    margin-right:0;
+    padding-right:0;
+    margin-bottom:0;
+    margin-top:0;
+    margin-bottom:0;
+
+}
+.buttons .delete-btn {
+    float:right;
+    background-color:rgb(209, 78, 78);
+    color:white;
+    border:1px solid rgb(150, 55, 55);
+    border-radius:3px;
+    padding:5px;
+    margin: 8px;
+    margin-right:0;
+
+
+}
+.buttons button.edit-btn {
+    float:right;
+    background-color:rgb(85, 133, 189);
+    border:1px solid rgb(36, 85, 139);
+    border-radius:3px;
+    padding:5px;
+    margin: 8px;
+
+}
+.buttons button.edit-btn a{
+    color:white;
+    text-decoration:none;
+}
+
+p.description{
+    clear:both;
+    font-size:17px;
+    margin:0;
+    margin-top:0;
+    margin-bottom:0;
+
+}
+
+
+.like-cmt {
+    width:600px;
+    margin-top:5px;
+    clear:both;
+}
+
+p.likes, p.cmts{
+    float:left;
+}
+
+
+.comment-box {
+    clear:both;
+    display:none;
+    box-sizing: border-box;
+    width:607px;
+    position:relative;
+    bottom:20px;
+    padding:12px;
+    margin:0;
+    border-bottom:1px solid grey;
+    border-left:1px solid grey;
+    border-right:1px solid grey;
+    box-shadow:-9px 8px 5px rgb(148, 147, 147);
+}
+a.show-cmts {
+    text-decoration: underline rgb(53, 72, 82);
+    color:rgb(41, 43, 44);
+    float:right;
+    margin-top:15px;
+
+}
+.cmt_area{
+    margin:0;
+}
+.user {
+    font-size: 14px;
+    margin-left:0px;
+}
+.comment {
+    font-size: 17px;
+    margin-left:0px;
+    border-bottom: 1px solid grey;
+}
+
+#big-container {
+    margin:0;
+    border:1px solid rgb(167, 166, 166);
+    width:607px;
+    padding-bottom:37px;
+    position:relative;
+    
+    padding-left:2px;
+    background-color:rgb(252, 246, 255);
+    box-shadow:-9px 8px 5px rgb(148, 147, 147);
+
+}
+
+
